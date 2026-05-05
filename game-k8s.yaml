@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-inventory
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend-api
+        image: rifadanindra/inventory-backend:latest
+        imagePullPolicy: Always
+        env:
+        # 👇 SESUAIKAN DENGAN os.environ.get DI app.py KAMU
+        - name: NAMA_PRAKTIKAN
+          value: "Rifa Muhammad Danindra"
+        - name: NIM_PRAKTIKAN
+          value: "2405981"
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: backend
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+  type: ClusterIP # Wajib ClusterIP agar hanya bisa diakses via Ingress
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-inventory
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend-ui
+        image: rifadanindra/inventory-frontend:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  selector:
+    app: frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP # Wajib ClusterIP sesuai instruksi tugas
