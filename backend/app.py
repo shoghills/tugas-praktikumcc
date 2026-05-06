@@ -25,7 +25,7 @@ katalog_data = {
 def get_info(): 
     return jsonify(katalog_data) 
  
-@app.route('/api/add-item', methods=['POST']) 
+@app.route('/add-item', methods=['POST']) 
 def add_item(): 
     new_item = request.json.get('item') 
     if new_item: 
