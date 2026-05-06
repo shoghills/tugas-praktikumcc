@@ -17,7 +17,6 @@ spec:
         image: rifadanindra/inventory-backend:latest
         imagePullPolicy: Always
         env:
-        # 👇 SESUAIKAN DENGAN os.environ.get DI app.py KAMU
         - name: NAMA_PRAKTIKAN
           value: "Rifa Muhammad Danindra"
         - name: NIM_PRAKTIKAN
@@ -36,7 +35,7 @@ spec:
     - protocol: TCP
       port: 5000
       targetPort: 5000
-  type: ClusterIP # Wajib ClusterIP agar hanya bisa diakses via Ingress
+  type: ClusterIP 
 ---
 apiVersion: apps/v1
 kind: Deployment
