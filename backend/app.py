@@ -21,7 +21,7 @@ katalog_data = {
     "items": ["Zenith", "Terra Blade", "Megashark", "Health Potion"] 
 } 
  
-@app.route('/api/info', methods=['GET']) 
+@app.route('/info', methods=['GET']) 
 def get_info(): 
     return jsonify(katalog_data) 
  
